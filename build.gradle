@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.masterdev.back'
+group 'com.qacademico.back'
 version '1.0-SNAPSHOT'
 
 repositories {
