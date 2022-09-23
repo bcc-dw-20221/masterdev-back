@@ -1,6 +1,7 @@
 package com.qacademico.back.services.student;
 
 
+import com.qacademico.back.controller.student.response.StudentResponse;
 import com.qacademico.back.model.Student;
 import com.qacademico.back.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,9 @@ public class StudentService {
         return this.studentRepository.save(aStudent);
     }
 
-    public List<Student> getStudents() {
-        return studentRepository.findAll();
+    public List<StudentResponse> getStudents() {
+        final var students = studentRepository.findAll();
+        return students.stream().map((s) -> new StudentResponse().from(s)).toList();
     }
 
     public Optional<Student> getStudentes(final String anId) {

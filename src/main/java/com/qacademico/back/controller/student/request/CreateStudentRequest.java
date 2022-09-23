@@ -1,13 +1,12 @@
 package com.qacademico.back.controller.student.request;
 
 import com.qacademico.back.model.Student;
-import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Setter
-public class StudentRequest {
+public class CreateStudentRequest {
     private String name;
     private String email;
     private String cpf;

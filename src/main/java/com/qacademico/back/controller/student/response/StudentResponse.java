@@ -15,7 +15,7 @@ public class StudentResponse {
     private String address;
 
 
-    public StudentResponse fromStudent(final Student aStudent) {
+    public StudentResponse from(final Student aStudent) {
         this.id = aStudent.getId();
         this.enroll = aStudent.getEnroll();
         this.course = aStudent.getCourse();
