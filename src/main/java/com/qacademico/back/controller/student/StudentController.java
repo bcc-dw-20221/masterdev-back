@@ -1,7 +1,6 @@
 package com.qacademico.back.controller.student;
 
 import com.qacademico.back.controller.student.request.CreateStudentRequest;
-import com.qacademico.back.controller.student.request.StudentRequest;
 import com.qacademico.back.controller.student.request.UpdateStudentRequest;
 import com.qacademico.back.controller.student.response.CreateStudentResponse;
 import com.qacademico.back.controller.student.response.StudentResponse;
