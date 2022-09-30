@@ -4,27 +4,39 @@ import com.qacademico.back.controller.student.request.StudentRequest;
 import com.qacademico.back.controller.student.response.StudentResponse;
 import com.qacademico.back.services.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
+import java.util.Objects;
 
 @RestController
-@RequestMapping("api/students")
-public class StudentController {
+
+public class StudentController implements StudentAPI {
 
     @Autowired
     private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+        this.studentService = Objects.requireNonNull(studentService);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public StudentResponse create(@RequestBody StudentRequest request) {
-        final var aStudent = studentService.create(request.toStudent());
-        return new StudentResponse().fromStudent(aStudent);
+    @Override
+    public StudentResponse createStudent(StudentRequest input) {
+        final var aStudente = this.studentService.create(input.toStudent());
+        return new StudentResponse().fromStudent(aStudente);
+    }
+
+    @Override
+    public StudentResponse getById(String id) {
+        return null;
+    }
+
+    @Override
+    public StudentResponse updateById(String id, StudentRequest input) {
+        return null;
+    }
+
+    @Override
+    public void deleteById(String id) {
+
     }
 }
