@@ -24,9 +24,7 @@ import java.util.UUID;
 public class Professor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID id;
+    private String id;
     private String cpf;
     private String password;
     private String name;
@@ -34,9 +32,5 @@ public class Professor {
     private String phone;
     private String address;
     private LocalDate birthDate;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "professor_subject"
-    )
-    private List<Subject> subjects = new ArrayList<Subject>();
+    private String subjects;
 }

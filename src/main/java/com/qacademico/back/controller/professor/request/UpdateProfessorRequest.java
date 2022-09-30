@@ -3,12 +3,14 @@ package com.qacademico.back.controller.professor.request;
 import com.qacademico.back.model.Professor;
 import com.qacademico.back.model.Subject;
 import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Setter
-public class ProfessorRequest {
+public class UpdateProfessorRequest {
     private String name;
     private String email;
     private String cpf;
@@ -17,11 +19,9 @@ public class ProfessorRequest {
     private LocalDate birthDate;
     private String password;
 
-    private String  subjectList;
+    private String subjectList;
 
-    public Professor toProfessor() {
-
-        final var professor = new Professor();
+    public Professor toProfessor(final Professor professor) {
 
         professor.setName(name);
         professor.setCpf(cpf);

@@ -21,12 +21,8 @@ import java.util.UUID;
 @Entity
 public class Subject {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
-    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
     private String name;
     private String timeSpan;
-    @ManyToMany(mappedBy = "subjects")
-    @JsonIgnore
-    private List<Professor> professors = new ArrayList<Professor>();
+    private String professors;
 }
