@@ -1,7 +1,11 @@
 package com.qacademico.back.controller.student;
 
+import com.qacademico.back.controller.student.request.CreateStudentRequest;
 import com.qacademico.back.controller.student.request.StudentRequest;
+import com.qacademico.back.controller.student.request.UpdateStudentRequest;
+import com.qacademico.back.controller.student.response.CreateStudentResponse;
 import com.qacademico.back.controller.student.response.StudentResponse;
+import com.qacademico.back.controller.student.response.UpdateStudentResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -9,6 +13,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping(value = "/api/students")
 @Tag(name = "Students")
@@ -20,7 +26,18 @@ public interface StudentAPI {
             @ApiResponse(responseCode = "422", description = "Unprocessable error"),
             @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
-    StudentResponse createStudent(@RequestBody StudentRequest input);
+    CreateStudentResponse createStudent(@RequestBody CreateStudentRequest input);
+
+
+    @GetMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(summary = "Get all students")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Student retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error"),
+    })
+    List<StudentResponse> getAllStudents();
 
 
     @GetMapping(
@@ -45,7 +62,7 @@ public interface StudentAPI {
             @ApiResponse(responseCode = "404", description = "Student was not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
-    StudentResponse updateById(@PathVariable(name = "id") String id, @RequestBody StudentRequest input);
+    UpdateStudentResponse updateById(@PathVariable(name = "id") String id, @RequestBody UpdateStudentRequest input);
 
     @DeleteMapping(
             value = "{id}",

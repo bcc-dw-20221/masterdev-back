@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Setter
-public class StudentRequest {
+public class UpdateStudentRequest {
     private String name;
     private String email;
     private String cpf;
@@ -18,9 +18,8 @@ public class StudentRequest {
     private String enroll;
     private String course;
 
-    public Student of(final Student student) {
 
-        student.setId(UUID.randomUUID().toString());
+    public Student toStudent(final Student student) {
         student.setName(name);
         student.setEnroll(enroll);
         student.setCourse(course);

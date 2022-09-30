@@ -14,16 +14,25 @@ public class StudentResponse {
     private String phone;
     private String address;
 
+    private StudentResponse(String id, String enroll, String course, String name, String email, String phone, String address) {
+        this.id = id;
+        this.enroll = enroll;
+        this.course = course;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
 
-    public StudentResponse fromStudent(final Student aStudent) {
-        this.id = aStudent.getId();
-        this.enroll = aStudent.getEnroll();
-        this.course = aStudent.getCourse();
-        this.name = aStudent.getName();
-        this.email = aStudent.getEmail();
-        this.phone = aStudent.getPhone();
-        this.address = aStudent.getAddress();
-
-        return this;
+    public static StudentResponse fromStudent(final Student aStudent) {
+        return new StudentResponse(
+                aStudent.getId(),
+                aStudent.getEnroll(),
+                aStudent.getCourse(),
+                aStudent.getName(),
+                aStudent.getEmail(),
+                aStudent.getPhone(),
+                aStudent.getAddress()
+        );
     }
 }
