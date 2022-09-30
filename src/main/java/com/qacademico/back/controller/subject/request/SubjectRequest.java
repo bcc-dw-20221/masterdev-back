@@ -18,7 +18,6 @@ public class SubjectRequest {
 
         subject.setName(name);
         subject.setTimeSpan(timeSpan);
-        subject.setProfessors(professorList);
 
         return subject;
     }

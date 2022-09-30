@@ -1,61 +1,59 @@
 package com.qacademico.back.controller.professor;
 
-import com.qacademico.back.controller.professor.request.ProfessorRequest;
-import com.qacademico.back.controller.professor.response.ProfessorResponse;
-import com.qacademico.back.model.Professor;
+import com.qacademico.back.controller.professor.request.CreateProfessorRequest;
+import com.qacademico.back.controller.professor.request.UpdateProfessorRequest;
+import com.qacademico.back.controller.professor.response.CreateProfessorResponse;
+import com.qacademico.back.controller.professor.response.GetProfessorResponse;
+import com.qacademico.back.controller.professor.response.UpdateProfessorResponse;
 import com.qacademico.back.services.professor.ProfessorService;
-import com.qacademico.back.services.subject.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Objects;
 
 @RestController
-@RequestMapping("api/professors")
-public class ProfessorController {
+public class ProfessorController implements ProfessorAPI {
     @Autowired
     private ProfessorService professorService;
 
-    @Autowired
-    private SubjectService subjectService;
-
     public ProfessorController(ProfessorService professorService) {
-        this.professorService = professorService;
+        this.professorService = Objects.requireNonNull(professorService);
     }
 
-    @PostMapping("/post")
-    @ResponseStatus(HttpStatus.OK)
-    public ProfessorResponse createProfessor(@RequestBody ProfessorRequest professorRequest){
+    public CreateProfessorResponse createProfessor(@RequestBody CreateProfessorRequest professorRequest) {
         final var professor = professorService.create(professorRequest.toProfessor());
-        return new ProfessorResponse().fromProfessor(professor);
+        return CreateProfessorResponse.of(professor);
     }
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public List<Professor> getAllProfessors(){
-        return professorService.findAllProfessors();
+    @Override
+    public List<GetProfessorResponse> getAllProfessor() {
+        return this.professorService.findAllProfessors();
     }
 
-    @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ProfessorResponse updateProfessorById(@RequestBody ProfessorRequest professorRequest, @PathVariable("id") UUID id){
-        var professor = professorService.updateProfessor(professorRequest.toProfessor(), id);
-        return new ProfessorResponse().fromProfessor(professor);
+    @Override
+    public GetProfessorResponse getById(String id) {
+        final var professor = this.professorService.findProfessorById(id);
+        return professor.orElse(null);
     }
 
-    @PutMapping("/add-subject/{professorId}/{subjectId}")
-    @ResponseStatus(HttpStatus.OK)
-    public ProfessorResponse addSubjectToProfessor(@PathVariable("professorId") UUID professorId,
-                                                   @PathVariable("subjectId") UUID subjectId){
-        var professor = professorService.addSubjectToProfessor(professorId, subjectId);
-        return new ProfessorResponse().fromProfessor(professor);
+    @Override
+    public UpdateProfessorResponse updateById(String id, UpdateProfessorRequest input) {
+        return this.professorService.updateProfessor(input, id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteProfessorById(@PathVariable("id") UUID id){
-        professorService.deleteProfessorById(id);
+    @Override
+    public void deleteById(String id) {
+        this.professorService.deleteProfessorById(id);
+
     }
+
+//    @PutMapping("/add-subject/{professorId}/{subjectId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ProfessorResponse addSubjectToProfessor(@PathVariable("professorId") UUID professorId,
+//                                                   @PathVariable("subjectId") UUID subjectId){
+//        var professor = professorService.addSubjectToProfessor(professorId, subjectId);
+//        return new ProfessorResponse().fromProfessor(professor);
+//    }
 }

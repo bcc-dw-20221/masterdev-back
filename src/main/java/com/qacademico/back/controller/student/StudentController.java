@@ -37,7 +37,8 @@ public class StudentController implements StudentAPI {
 
     @Override
     public StudentResponse getById(final String anId) {
-        return this.studentService.getStudent(anId).get();
+       final var aStudent = this.studentService.getStudent(anId);
+       return aStudent.orElse(null);
     }
 
     @Override

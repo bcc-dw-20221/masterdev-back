@@ -19,18 +19,16 @@ public class ProfessorResponse {
     private String address;
     private String phone;
     private LocalDate birthDate;
-    private List<String> subjectNamesList = new ArrayList<String>();
+    private String subjectNamesList ;
     public ProfessorResponse fromProfessor(final Professor professor) {
-        this.id = professor.getId();
+//        this.id = professor.getId();
         this.name = professor.getName();
         this.email = professor.getEmail();
         this.phone = professor.getPhone();
         this.address = professor.getAddress();
         this.birthDate = professor.getBirthDate();
 
-        this.subjectNamesList = professor.getSubjects().stream()
-        .map(Subject::getName)
-        .collect(Collectors.toCollection(ArrayList::new));
+        this.subjectNamesList = professor.getSubjects();
 
         return this;
     }
