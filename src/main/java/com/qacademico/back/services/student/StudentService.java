@@ -1,6 +1,11 @@
 package com.qacademico.back.services.student;
 
 
+import com.qacademico.back.controller.student.request.CreateStudentRequest;
+import com.qacademico.back.controller.student.request.UpdateStudentRequest;
+import com.qacademico.back.controller.student.response.CreateStudentResponse;
+import com.qacademico.back.controller.student.response.StudentResponse;
+import com.qacademico.back.controller.student.response.UpdateStudentResponse;
 import com.qacademico.back.model.Student;
 import com.qacademico.back.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class StudentService {
@@ -20,33 +24,32 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student create(Student aStudent) {
-
-        if (aStudent.getId() == null) {
-            final var andId = UUID.randomUUID();
-            aStudent.setId(andId.toString());
-        }
-
-        return this.studentRepository.save(aStudent);
+    public CreateStudentResponse create(final CreateStudentRequest aStudent) {
+        final var student = this.studentRepository.save(aStudent.toStudent());
+        return CreateStudentResponse.of(student);
     }
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
     }
 
-    public Optional<Student> getStudentes(final String anId) {
-        return studentRepository.findById(anId);
+    public Optional<StudentResponse> getStudent(final String anId) {
+        return Optional.ofNullable(studentRepository.findById(anId)
+                .map(StudentResponse::fromStudent)
+                .orElseThrow(IllegalStateException::new));
     }
 
-    public Student updateStudent(final Student anStudent) {
-        return studentRepository.save(anStudent);
+    public UpdateStudentResponse updateStudent(final String anId, final UpdateStudentRequest aStudent) {
+
+        final var student = this.studentRepository
+                .findById(anId).map(aStudent::toStudent)
+                .orElseThrow(IllegalStateException::new);
+
+        return UpdateStudentResponse.of(this.studentRepository.save(student));
     }
 
     public void deleteStudent(final String anId) {
-        final var aStudent = studentRepository.findById(anId)
-                .orElse(null);
-        if (aStudent != null) {
-            studentRepository.delete(aStudent);
-        }
+        final var aStudent = studentRepository.findById(anId);
+        aStudent.ifPresent(studentRepository::delete);
     }
 }
