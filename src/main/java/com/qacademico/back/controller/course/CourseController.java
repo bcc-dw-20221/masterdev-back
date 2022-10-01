@@ -4,13 +4,12 @@ import com.qacademico.back.controller.course.request.CreateCourseRequest;
 import com.qacademico.back.controller.course.request.UpdateCourseRequest;
 import com.qacademico.back.controller.course.response.CourseResponse;
 import com.qacademico.back.services.course.CourseService;
-import com.qacademico.back.services.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Objects;
 
-public class CourseController implements courseAPI{
+public class CourseController implements CourseAPI{
 
     @Autowired
     private CourseService courseService;

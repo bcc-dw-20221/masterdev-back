@@ -2,6 +2,8 @@ package com.qacademico.back.controller.course;
 
 import com.qacademico.back.controller.course.request.CreateCourseRequest;
 import com.qacademico.back.controller.course.request.UpdateCourseRequest;
+import com.qacademico.back.controller.course.response.CreateCourseResponse;
+import com.qacademico.back.controller.course.response.UpdateCourseResponse;
 import com.qacademico.back.controller.course.response.CourseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
