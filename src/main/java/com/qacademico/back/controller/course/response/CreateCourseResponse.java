@@ -3,7 +3,7 @@ import com.qacademico.back.model.Course;
 
 public record CreateCourseResponse (String id){
 
-    public static createCourseResponse of(final Course course){
+    public static CreateCourseResponse of(final Course course){
         return new CreateCourseResponse(course.getId());
         }
 }
