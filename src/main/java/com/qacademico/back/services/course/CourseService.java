@@ -17,7 +17,7 @@ import java.util.Optional;
 public class CourseService {
 
     @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
 
     public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
@@ -31,7 +31,7 @@ public class CourseService {
 
     public UpdateCourseResponse updateCourseById(final String id, final UpdateCourseRequest updateCourseRequest){
         var course = this.courseRepository.findById(id)
-                .map(UpdateCourseRequest::fromCourse)
+                .map(updateCourseRequest::toCourse)
                 .orElseThrow(IllegalStateException::new);
 
         return UpdateCourseResponse.of(this.courseRepository.save(course));
