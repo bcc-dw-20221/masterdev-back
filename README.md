@@ -32,6 +32,12 @@ O objetivo principal da __qacademico-back__ é desenvolver uma API de um sistema
 ### Features
 - Em analise ...
 
+
+### Como Executar o projeto no Docker
+ 1 - Clone o projeto
+ 2 - Execute o comando `docker-compose up -d`
+ 3 - Acesse o endereço `http://localhost:8082/swagger-ui.html` para acessar a documentação da API
+
 ### 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
