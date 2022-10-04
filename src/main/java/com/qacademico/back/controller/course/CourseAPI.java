@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping(value = "/api/courses")
-@Tag(name = "Course")
+@Tag(name = "Courses")
 public interface CourseAPI {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new course")

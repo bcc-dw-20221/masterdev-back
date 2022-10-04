@@ -3,16 +3,20 @@ package com.qacademico.back.controller.course;
 import com.qacademico.back.controller.course.request.CreateCourseRequest;
 import com.qacademico.back.controller.course.request.UpdateCourseRequest;
 import com.qacademico.back.controller.course.response.CourseResponse;
+import com.qacademico.back.controller.course.response.CreateCourseResponse;
+import com.qacademico.back.controller.course.response.UpdateCourseResponse;
 import com.qacademico.back.services.course.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Objects;
 
+@RestController
 public class CourseController implements CourseAPI{
 
     @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
 
     public CourseController(CourseService courseService) {
         this.courseService = Objects.requireNonNull(courseService);
